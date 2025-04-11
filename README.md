@@ -3,7 +3,7 @@
  # Payment Analytics Project
 
 ## Overview
-A PostgreSQL-based data analysis project focused on loan repayment behavior and consolidated payment solutions. Created to demonstrate SQL proficiency for a Product Specialist role, this project includes data generation scripts and analytics queries that address real banking business problems.
+A PostgreSQL-based data analysis project focused on loan repayment behavior and consolidated payment solutions. 
 
 ## Project Purpose
 The project allows financial analysts to:
