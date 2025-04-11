@@ -40,7 +40,7 @@ def generate_payments(contracts, current_date, num_payments_limit=None):
             if due_date > current_date:
                 # Create scheduled future payment
                 status = 'scheduled'
-                payment_at = None
+                payment_at = None  # This will become NULL in the database, not NaT
             else:
                 # Create historical payment with appropriate status
                 on_time_probability = 0.85 if contract['status'] != 'default' else 0.5
@@ -63,7 +63,7 @@ def generate_payments(contracts, current_date, num_payments_limit=None):
                         # Partial payment made around due date (-2 to +5 days)
                         payment_at = due_date + timedelta(days=random.randint(-2, 5))
                     else:  # missed
-                        payment_at = None
+                        payment_at = None  # This will become NULL in the database, not NaT
             
             # Calculate payment amounts
             scheduled_amount = round(base_payment_amount, 2)

@@ -1,5 +1,6 @@
 import numpy as np
 import random
+import pandas as pd
 from datetime import datetime
 from psycopg2.extras import execute_values
 
@@ -48,14 +49,34 @@ def insert_data(conn, customers_df, products_df, contracts_df, payments_df, cs_d
             [tuple(x) for x in contracts_df.values])
         
         print("Inserting payments...")
+        # Fix NaT values in the payments_df - replace with None (SQL NULL)
+        payment_values = []
+        for row in payments_df.itertuples(index=False):
+            row_list = list(row)
+            # Convert any pd.NaT values to None
+            for i, val in enumerate(row_list):
+                if pd.isna(val):
+                    row_list[i] = None
+            payment_values.append(tuple(row_list))
+        
         execute_values(cur, 
             "INSERT INTO payments (payment_id, contract_id, scheduled_amount, principal_amount, interest_amount, fee_amount, paid_amount, due_date, payment_at, status) VALUES %s",
-            [tuple(x) for x in payments_df.values])
+            payment_values)
         
         print("Inserting customer service tickets...")
+        # Also fix potential NaT values in customer_service df
+        cs_values = []
+        for row in cs_df.itertuples(index=False):
+            row_list = list(row)
+            # Convert any pd.NaT values to None
+            for i, val in enumerate(row_list):
+                if pd.isna(val):
+                    row_list[i] = None
+            cs_values.append(tuple(row_list))
+            
         execute_values(cur, 
             "INSERT INTO customer_service (ticket_id, customer_id, contract_id, created_at, resolved_at, issue_type, satisfaction_score) VALUES %s",
-            [tuple(x) for x in cs_df.values])
+            cs_values)
         
         conn.commit()
 
