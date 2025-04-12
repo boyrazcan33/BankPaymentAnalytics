@@ -1,7 +1,7 @@
 # Payment Analytics & Consolidated Payment System
 
 ## Overview
-A data analytics project using PostgreSQL to analyze loan repayment patterns and develop a consolidated payment solution for customers with multiple financial contracts. This project includes both data generation scripts and SQL queries for analyzing payment behavior.
+A PostgreSQL data analytics project for analyzing banking customer behavior and product performance. Features SQL queries for payment pattern analysis and a consolidated payment solution for customers with multiple contracts. Includes both data generation scripts and analytical queries with business insights.
 
 ## Project Purpose
 This project demonstrates how to:
